@@ -8,7 +8,7 @@ ARG VERSION=7
 ARG JAVA_VERSION=11
 ARG CLUSTER_NAME=elasticsearch
 ARG NODE_NAME=node-1
-ARG NETWORK_HOST=
+ARG NETWORK_HOST=${JAIL_IP}
 
 # install required packages
 PKG elasticsearch${VERSION} openjdk${JAVA_VERSION}
