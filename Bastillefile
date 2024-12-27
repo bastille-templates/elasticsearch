@@ -1,35 +1,33 @@
-CONFIG set enforce_statfs=1;
 CONFIG set allow.mount.procfs;
 CONFIG set mount.procfs;
 
 RESTART
 
-ARG VERSION=7
-ARG JAVA_VERSION=11
-ARG CLUSTER_NAME=elasticsearch
-ARG NODE_NAME=node-1
-ARG NETWORK_HOST=${JAIL_IP}
+ARG version=7
+ARG cluster_name=elasticsearch
+ARG node_name=node-1
+ARG host_ip=${JAIL_IP}
 
 # install required packages
-PKG elasticsearch${VERSION} openjdk${JAVA_VERSION}
+INCLUDE https://github.com/bastille-templates/openjdk/tree/v11
 
+PKG elasticsearch${version}
 # copy files
 # CP usr /
 
 # enable and start elasticsearch
 SYSRC elasticsearch_enable=YES
-SYSRC elasticsearch_java_home=/usr/local/openjdk${JAVA_VERSION}
 
-#CMD if [ ! -z ${CLUSTER_NAME} ];then echo "cluster.name: ${CLUSTER_NAME}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ ! -z ${NODE_NAME} ];then echo "node.name: ${NODE_NAME}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ ! -z ${NETWORK_HOST} ];then echo "network.host: ${NETWORK_HOST}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; echo "discovery.seed_hosts: [\"${NETWORK_HOST}\"]" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ ! -z ${NODE_NAME} ];then echo "cluster.initial_master_nodes: [\"${NODE_NAME}\"]" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ ! -z ${cluster_name} ];then echo "cluster.name: ${cluster_name}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ ! -z ${node_name} ];then echo "node.name: ${node_name}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ ! -z ${host_ip} ];then echo "network.host: ${host_ip}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; echo "discovery.seed_hosts: [\"${host_ip}\"]" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ ! -z ${node_name} ];then echo "cluster.initial_master_nodes: [\"${node_name}\"]" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
 
-#CMD if [ "${VERSION}" -gt 7 ]; then echo "# FIXME: Re-enable security measures for production!" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${VERSION}" -gt 7 ]; then echo "xpack.security:" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${VERSION}" -gt 7 ]; then echo "  enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${VERSION}" -gt 7 ]; then echo "  enrollment.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${VERSION}" -gt 7 ]; then echo "  http.ssl.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${VERSION}" -gt 7 ]; then echo "  transport.ssl.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ "${version}" -gt 7 ]; then echo "# FIXME: Re-enable security measures for production!" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ "${version}" -gt 7 ]; then echo "xpack.security:" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ "${version}" -gt 7 ]; then echo "  enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ "${version}" -gt 7 ]; then echo "  enrollment.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ "${version}" -gt 7 ]; then echo "  http.ssl.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
+#CMD if [ "${version}" -gt 7 ]; then echo "  transport.ssl.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
 
 SERVICE elasticsearch start
