@@ -1,11 +1,4 @@
-CONFIG set allow.mount.procfs;
-CONFIG set mount.procfs;
-CONFIG set allow.sysvipc=1;
-CONFIG set allow.raw_sockets=1;
-
-RESTART
-
-#ARG version=7
+ARG version=7
 #ARG cluster_name=elasticsearch
 #ARG node_name=node-1
 #ARG host_ip=${JAIL_IP}
@@ -15,6 +8,7 @@ INCLUDE https://github.com/bastille-templates/openjdk/tree/v11
 
 PKG elasticsearch${version}
 # copy files
+CP etc /
 CP usr /
 
 # enable and start elasticsearch
