@@ -1,29 +1,13 @@
-ARG version=7
-#ARG cluster_name=elasticsearch
-#ARG node_name=node-1
-#ARG host_ip=${JAIL_IP}
+ARG version=8
 
 # install required packages
-INCLUDE https://github.com/bastille-templates/openjdk/tree/v11
+INCLUDE https://github.com/bastille-templates/openjdk/tree/v17
 
 PKG elasticsearch${version}
 # copy files
 CP etc /
-CP usr /
 
 # enable and start elasticsearch
 SYSRC elasticsearch_enable=YES
-
-#CMD if [ ! -z ${cluster_name} ];then echo "cluster.name: ${cluster_name}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ ! -z ${node_name} ];then echo "node.name: ${node_name}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ ! -z ${host_ip} ];then echo "network.host: ${host_ip}" >> /usr/local/etc/elasticsearch/elasticsearch.yml; echo "discovery.seed_hosts: [\"${host_ip}\"]" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ ! -z ${node_name} ];then echo "cluster.initial_master_nodes: [\"${node_name}\"]" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-
-#CMD if [ "${version}" -gt 7 ]; then echo "# FIXME: Re-enable security measures for production!" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${version}" -gt 7 ]; then echo "xpack.security:" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${version}" -gt 7 ]; then echo "  enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${version}" -gt 7 ]; then echo "  enrollment.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${version}" -gt 7 ]; then echo "  http.ssl.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
-#CMD if [ "${version}" -gt 7 ]; then echo "  transport.ssl.enabled: false" >> /usr/local/etc/elasticsearch/elasticsearch.yml; fi
 
 SERVICE elasticsearch start
