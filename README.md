@@ -1,6 +1,5 @@
 ## Now apply template to container
 ```sh
-bastille create elasticsearch 14.1-RELEASE YourIP-Bastille
 bastille bootstrap https://github.com/bastille-templates/elasticsearch
 bastille template elasticsearch bastille-templates/elasticsearch
 ```
