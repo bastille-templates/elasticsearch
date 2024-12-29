@@ -1,14 +1,13 @@
 ARG version=8
+ARG v_jdk=17
 
 # install required packages
-INCLUDE https://github.com/bastille-templates/openjdk/tree/v17
-
-PKG elasticsearch${version}
+PKG elasticsearch${version} openjdk${v_jdk}
 # copy files
 CP etc /
 
 # enable and start elasticsearch
 SYSRC elasticsearch_enable=YES
-SYSRC elasticsearch_java_home=/usr/local/openjdk${version}
+SYSRC elasticsearch_java_home=/usr/local/openjdk${v_jdk}
 
 SERVICE elasticsearch start
