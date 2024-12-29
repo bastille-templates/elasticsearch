@@ -9,5 +9,6 @@ CP etc /
 
 # enable and start elasticsearch
 SYSRC elasticsearch_enable=YES
+SYSRC elasticsearch_java_home=/usr/local/openjdk${version}
 
 SERVICE elasticsearch start
